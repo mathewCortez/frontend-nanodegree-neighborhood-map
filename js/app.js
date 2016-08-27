@@ -55,14 +55,14 @@ function ViewModel() {
         getMusic(self.searchLocation());
         
         function zipToCoord(zipcode) {
-            geocoder.geocode(){'address': zipcode + ', USA'},
+            geocoder.geocode({'address': zipcode + ', USA'},
                 function(results, status) {
                     if (status == google.maps.GeocoderStatus.OK) {
                         var point = results[0].geometry.location;
                         newLat = point.lat();
                         newLng = point.lng();
                     }
-                }
+                });
         }
         var newLatLng = new google.maps.LatLng(newLat, newLng);
         map.center(newLatLng);

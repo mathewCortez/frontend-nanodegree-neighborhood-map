@@ -16,10 +16,10 @@
             <div class="col-xs-8 col-sm-6 col-md-6">
                 <form id="form-container" class="form-container" data-bind="submit: searchResults">
                     <label for="search"></label>
-                    <input type="text" id="search" placeholder="Search" data-bind="value: searchBar, valueUpdate: 'keyup'" autocomplete="off"/>
+                    <input type="text" id="search" placeholder="Search" data-bind="textInput: searchBar"/>
                 </form>
                 <form id="form-loc" class="form-loc" data-bind="submit: searchLoc">
-                    <p>Location (Zipcode): <input type="text" placeholder="Search Location" data-bind="value: searchLocation" autocomplete="off"/></p>
+                    <p>Location (Zipcode):<br/> <input type="text" placeholder="Search Location" data-bind="value: searchLocation" autocomplete="off"/></p>
                     <button type="submit">Submit</button>
                 </form>
             </div>

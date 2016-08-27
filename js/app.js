@@ -3,6 +3,7 @@ function ViewModel() {
     var self = this;
     var map, city, infoWindow;
     var jamBaseApi = '2c3r8g3yg69xqjsjbgy23h4c';
+    var geocoder = new google.maps.Geocoder();
 
     //Getting date for Jambase Api
     //http://stackoverflow.com/questions/1531093/how-to-get-current-date-in-javascript - this is where I found out how to find the date
@@ -49,11 +50,21 @@ function ViewModel() {
         
         var newLat;
         var newLng;
-        
         self.searchLocation();
+        self.currentConcerts([]);
+        console.log(self.currentConcerts());
         console.log(self.searchLocation());
+//        mapMarkers(null);
+//        markers = [];
+        
+        function clearMarkers() {
+            
+        }
+        
         getMusic(self.searchLocation());
         
+        zipToCoord(self.searchLocation());
+
         function zipToCoord(zipcode) {
             geocoder.geocode({'address': zipcode + ', USA'},
                 function(results, status) {
@@ -61,11 +72,17 @@ function ViewModel() {
                         var point = results[0].geometry.location;
                         newLat = point.lat();
                         newLng = point.lng();
+                        console.log("new lat: " + newLat +" new lng: " + newLng);
                     }
+                    moveMap(newLat, newLng);
                 });
         }
-        var newLatLng = new google.maps.LatLng(newLat, newLng);
-        map.center(newLatLng);
+        function moveMap(lat, lng) {
+            console.log("Started recenter");
+            var newLatLng = new google.maps.LatLng(lat, lng);
+            map.panTo(newLatLng);
+        }
+        
     
     };
     
@@ -182,6 +199,7 @@ function ViewModel() {
                         venueName = venue.Name;
                         venueAddress = venue.Address;
                         venueCity = venue.City;
+                        venueState = venue.State
                         venueZip = venue.ZipCode;
                         self.currentConcerts.push({
                             concertLat: venueLat,
@@ -190,6 +208,7 @@ function ViewModel() {
                             concertArtist: artist,
                             concertAddress: venueAddress,
                             concertCity: venueCity,
+                            concertState: venueState,
                             concertZip: venueZip,
                             concertUrl: ticketUrl
                         });
@@ -225,7 +244,7 @@ function ViewModel() {
             var geoLng = new google.maps.LatLng(lat, lng);
             var thisArtist = value.concertArtist;
 
-            var contentString = '<div id="info-window">' + '<h4>    Artist: ' + value.concertArtist + '</h4>' + '<h5> Venue: ' + value.concertVenueName + '</h5>' + '<h6> Address: ' + value.concertAddress + ', ' + value.concertCity + ', MA ' + value.concertZip + '</h6>';
+            var contentString = '<div id="info-window">' + '<h4>    Artist: ' + value.concertArtist + '</h4>' + '<h5> Venue: ' + value.concertVenueName + '</h5>' + '<h6> Address: ' + value.concertAddress + ', ' + value.concertCity + ', ' + value.concertState + " " + value.concertZip + '</h6>';
             
             if ( value.concertUrl !== "" ) {
                 contentString +=  '<a href="' + value.concertUrl + '">Get Tickets</a>';

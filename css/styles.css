@@ -24,10 +24,11 @@ body {
 #form-loc {
     position: absolute;
     top: 10px;
-    left: 210px;
+    left: 350px;
     z-index: 9;
     overflow: hidden;
 }
+
 #info-window {
     max-width: 175px;
 }

@@ -27,7 +27,7 @@ function ViewModel() {
 
     //binding for search input, status and location
     this.searchBar = ko.observable();
-    this.searchLocation = ko.observable('Boston, MA');
+    this.searchLocation = ko.observable('02108');
     //value from search
     this.searchList = ko.observableArray([]);
     this.toggleVal = ko.observable('hide');
@@ -45,6 +45,53 @@ function ViewModel() {
         }
     };
 
+    this.searchLoc = function() {
+        
+        var newLat;
+        var newLng;
+        
+        self.searchLocation();
+        console.log(self.searchLocation());
+        getMusic(self.searchLocation());
+        
+        function zipToCoord(zipcode) {
+            geocoder.geocode(){'address': zipcode + ', USA'},
+                function(results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        var point = results[0].geometry.location;
+                        newLat = point.lat();
+                        newLng = point.lng();
+                    }
+                }
+        }
+        var newLatLng = new google.maps.LatLng(newLat, newLng);
+        map.center(newLatLng);
+    
+    };
+    
+//    function usePointFromPostcode(zipcode) {
+//        geocoder.geocode( { 'address': zipcode + ", USA"}, function(results, status) {
+//            if (status == google.maps.GeocoderStatus.OK) {
+//                var point = results[0].geometry.location;			
+//                var resultLat = point.lat();
+//                var resultLng = point.lng();
+//                if (zipcode!="") {	
+//                    bounds.extend(point);	
+//
+//                    latavg.push(resultLat);
+//                    lngavg.push(resultLng);
+//            //console.log(zipcode);
+//                    var marker=placeMarker(point,zipcode);
+//                    routeMarkers.push(marker);
+//                }
+//                next();
+//            }
+//            else {
+//                alert("Location not found! ("+status+")");
+//            }
+//        });
+//    }
+    
     this.searchResults = function() {
         var searchElem = self.searchBar().toLowerCase();
         console.log('search elem: ' + searchElem);

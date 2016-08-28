@@ -32,6 +32,19 @@ function ViewModel() {
     //value from search
     this.searchList = ko.observableArray([]);
     this.toggleVal = ko.observable('hide');
+    this.changeClass = ko.observable(false);
+    
+    this.toggleClass = function () {
+        console.log(this.changeClass());
+        if (this.changeClass() === false) {
+            this.changeClass(true);
+            console.log(this.changeClass());
+        }
+        else {
+            this.changeClass(false);
+            console.log(this.changeClass());
+        }
+    };
 
     //When a concert is clicked, this function goes to corresponding marker and open its info window.
     this.findMarker = function(clickedConcert) {

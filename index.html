@@ -15,8 +15,8 @@
         <div id="header" data-bind="click: toggleClass">
             <a href="#" class="menu-icon-link"><span></span></a>
         </div>
-        <div class="slide-menu" data-bind="css: { hideClass: changeClass()===true }">
-            <div >
+        <div id="slide-menu" data-bind="css: { hideClass: changeClass()===true }">
+            <div class = "forms">
                 <form id="form-container" class="form-container" data-bind="submit: searchResults">
                     <label for="search"></label>
                     <input type="text" id="search" placeholder="Search" data-bind="textInput: searchBar"/>

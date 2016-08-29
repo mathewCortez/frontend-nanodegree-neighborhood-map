@@ -44,16 +44,12 @@ span:before {
 span:after {
   bottom: -10px;
 }
-.slide-menu {
+#slide-menu {
     position: fixed;
     height: 100%;
     width: 350px;
     z-index: 11;
     
-}
-.icon-list {
-    font-size: 1.5em;
-    color: #FFF;
 }
 
 .location {
@@ -155,17 +151,27 @@ p {
     height: 30px;
 }
 
-@media screen and (max-width: 750px) {
-    h1, h4 {
-        font-size: 1em;
-    }
-}
 @media screen and (max-width: 550px) {
-    .slide-menu {
-        width: 70%;
+    h1, h4 {
+        font-size: 1.2em;
+    }
+    #slide-menu {
+        width: 85%;
+    }
+    #background {
+        width: 85%;
     }
     .hideClass {
-        transform: translate3d(-20em, 0, 0);
+        transform: translate3d(-30em, 0, 0);
         transition: transform 0.3s;
+    }
+    #list-overlay {
+        width: 70%;
+    }
+    #form-container {
+        width: 60%;
+    }
+    #form-loc {
+        width: 60%;
     }
 }
